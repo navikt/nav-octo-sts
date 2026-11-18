@@ -1,0 +1,1 @@
+FROM ghcr.io/octo-sts/app:0.14.3

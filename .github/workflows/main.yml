@@ -1,0 +1,47 @@
+name: Build and deploy main
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "*.md"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    permissions:
+      actions: read # for sarif
+      contents: write # for dependency graph & sarif
+      security-events: write # push sarif to github security
+      id-token: write # for nais docker-build-push
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.docker-push.outputs.image }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build & push docker image + SBOM
+        uses: nais/docker-build-push@main
+        id: docker-push
+        with:
+          team: gitmasters
+          pull: true
+          push_image: false
+      - name: Scan docker image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: '${{ steps.docker-push.outputs.image }}'
+          format: 'sarif'
+          scanners: 'secret'
+          output: 'trivy.sarif'
+      - uses: github/codeql-action/upload-sarif@v4.39.3
+        with:
+          sarif_file: 'trivy.sarif'
