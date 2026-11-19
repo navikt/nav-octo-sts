@@ -74,5 +74,5 @@ jobs:
         run: | # zizmor: ignore[template-injection]
           nais apply .nais/nais.yaml \
             --environment prod-gcp \
-            --set spec.image="${{ needs.build.outputs.image }}" \ 
+            --set spec.image="${{ needs.build.outputs.image }}" \
             --wait
