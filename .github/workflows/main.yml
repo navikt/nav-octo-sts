@@ -38,7 +38,7 @@ jobs:
         uses: sigstore/cosign-installer@v3.9.1
       - name: Verify baseimage
         run: |
-          cosign verify $IMG --certificate-identity-regexp "^https://github\.com/octo-sts/app/\.github/workflows/container\.yaml.*" --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
+          cosign verify ${IMG} --certificate-identity-regexp "^https://github\.com/octo-sts/app/\.github/workflows/container\.yaml.*" --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
         env:
           IMG: ${{ steps.baseimg.outputs.img }}
       - uses: nais/setup@v1
