@@ -46,7 +46,7 @@ spec:
     - name: OCTOSTS_POLICY_DIR
       value: ".github/access-policies"
     - name: METRICS
-      value: true
+      value: "true"
   envFrom:
     - secret: octo-sts
 
