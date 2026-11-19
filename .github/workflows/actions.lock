@@ -5,6 +5,7 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/main.yml':
         - 'actions/checkout@v7.0.1'
+        - 'docker/login-action@v4.8.0'
         - 'nais/docker-build-push@main'
         - 'nais/setup@v1'
         - 'sigstore/cosign-installer@v3.9.1'
@@ -58,6 +59,11 @@ dependencies:
     'docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121':
         ref: 'v4.1.0'
         commit: 'sha1-4907a6ddec9925e35a0a9e82d7399ccc52663121'
+        owner_id: 5429470
+        repo_id: 287743349
+    'docker/login-action@v4.8.0':
+        ref: 'v4.8.0'
+        commit: 'sha1-8aa5831fb8d48d8f76594c7ddde61ae58019f550'
         owner_id: 5429470
         repo_id: 287743349
     'docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302':
