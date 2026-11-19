@@ -1,0 +1,53 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: nav-octo-sts
+  namespace: gitmasters
+  labels:
+    team: gitmasters
+spec:
+  ingresses:
+    - https://octo-sts.nav.no
+  image: {{image}}
+  port: 8080
+  accessPolicy:
+    outbound:
+      external:
+        - host: api.github.com
+  liveness:
+    path: /
+    initialDelay: 10
+    port: 8080
+  replicas:
+    max: 2
+    min: 2
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    limits:
+      memory: 512Mi
+  observability:
+    logging:
+      destinations:
+        - id: loki
+  prometheus:
+    enabled: true
+    path: /metrics
+    port: "2112"
+  env:
+    - name: PORT
+      value: "8080"
+    - name: STS_DOMAIN
+      value: octo-sts.nav.no
+    - name: KMS_PROVIDER
+      value: gcp
+    - name: OCTOSTS_ALLOWED_ISSUERS
+      value: "https://token.actions.githubusercontent.com"
+    - name: OCTOSTS_POLICY_DIR
+      value: ".github/access-policies"
+    - name: METRICS
+      value: true
+  envFrom:
+    - secret: octo-sts
+
