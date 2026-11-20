@@ -26,6 +26,13 @@ spec:
       memory: 256Mi
     limits:
       memory: 512Mi
+  gcp:
+    permissions:
+      - resource:
+          apiVersion: kms.cnrm.cloud.google.com/v1beta1
+          kind: KMSKeyRing
+          name: octo-sts
+        role: roles/cloudkms.signer
   observability:
     logging:
       destinations:
