@@ -37,7 +37,7 @@ spec:
           apiVersion: kms.cnrm.cloud.google.com/v1beta1
           kind: KMSKeyRing
           name: octo-sts
-          role: cloudkms.cryptoKeyVersions.useToSign
+        role: cloudkms.cryptoKeyVersions.useToSign
   observability:
     logging:
       destinations:
