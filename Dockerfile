@@ -1,1 +1,1 @@
-FROM ghcr.io/octo-sts/app@sha256:cb91dd3e7adbf15f9cacb8dd0f718fbc39eef038604869f53e011062747314f1
+FROM ghcr.io/octo-sts/app@sha256:d679133fa8b824718f828290bdb1a6353c32989718cc31418a0bb783a20781d9
